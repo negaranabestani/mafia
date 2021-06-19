@@ -41,7 +41,7 @@ class ServerListener extends Thread{
                         s=codeIn.readUTF();
                     }
                 }else if (code.equals("shut_up")){
-                    gameService.player.talkative=false;
+                    gameService.player.psychAllows=false;
                     gameService.player.godSays("you can not talk!");
                 }else if (code.equals("do_action")){
                     gameService.player.doAction();

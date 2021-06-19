@@ -11,6 +11,7 @@ public class Player {
     public boolean checkRole;
     public boolean healed;
     public boolean talkative;
+    public boolean psychAllows;
     public PlayerStatus status;
     public int voteNumbers;
     public Player(String name){
@@ -33,7 +34,7 @@ public class Player {
     }
     public void talk(){
         //System.out.println(talkative);
-        if (talkative){
+        if (talkative&&psychAllows){
             String s;
             //System.out.print(name+": ");
             Scanner sc=new Scanner(System.in);

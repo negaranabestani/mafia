@@ -113,9 +113,11 @@ class God implements Runnable{
                 if (values.allMafia.size()==values.allCitizen.size()){
                     sendState("ended");
                     sendWinner("mafia");
+                    break;
                 }else if (values.allMafia.size()==0){
                     sendState("ended");
                     sendWinner("citizen");
+                    break;
                 }
                 sendState("night");
                 if (!isGodfatherLiving())
