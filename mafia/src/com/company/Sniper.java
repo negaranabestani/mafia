@@ -12,6 +12,7 @@ public class Sniper extends Citizen{
         Scanner c=new Scanner(System.in);
         String s=c.nextLine();
         if (s.equals("yes")){
+            System.out.println("who?");
             s=c.nextLine();
         }
         gameService.sendRoleAction(s);

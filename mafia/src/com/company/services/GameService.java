@@ -37,11 +37,12 @@ class ServerListener extends Thread{
                 }else if (code.equals("dieHardAnswer")){
                     String s=codeIn.readUTF();
                     while (!s.equals("done")){
-                        gameService.player.godSays(codeIn.readUTF());
+                        gameService.player.godSays(s);
                         s=codeIn.readUTF();
                     }
                 }else if (code.equals("shut_up")){
                     gameService.player.talkative=false;
+                    gameService.player.godSays("you can not talk!");
                 }else if (code.equals("do_action")){
                     gameService.player.doAction();
                 }else if (code.equals("godfather_role")){
@@ -130,6 +131,7 @@ public class GameService implements Runnable{
         }
         else if (state.equals("voting")){
             runtimeInformation.status=GameStatus.Voting;
+            player.talkative=false;
             player.vote();
         }
     }
@@ -244,6 +246,7 @@ public class GameService implements Runnable{
         getChat.start();
     }
     public void sendRoleAction(String action){
+        player.talkative=false;
         try {
             serverOut.writeUTF("action");
             serverOut.writeUTF(action);
@@ -295,10 +298,8 @@ class GetChat extends Thread{
     @Override
     public void run() {
         while (!gameService.getRuntimeInfo().status.equals(GameStatus.Ended)) {
-//                if (gameService.player.talkative){
                     //System.out.println(gameService.player.talkative);
                     gameService.player.talk();
-                //}
 
         }
     }

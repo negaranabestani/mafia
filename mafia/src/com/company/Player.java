@@ -42,13 +42,13 @@ public class Player {
             s=sc.nextLine();
             if (this instanceof Mafia&&((Mafia) this).godFatherRole){
                 if (s.equals("action")){
+                    talkative=false;
                     ((Mafia) this).godFatherJob();
                     //gameService.chatStop();
-                    talkative=false;
-                }else
+                }else if (talkative)
                     gameService.sendLog(s);
 
-            }else
+            }else if (talkative)
                 gameService.sendLog(s);
         }
 

@@ -13,16 +13,14 @@ public class Mafia extends Player{
         System.out.println("who do you want to kill?");
 
     }
-    public void choosePlayer(){
+
+    public void godFatherJob(){
         shootGun();
         String name;
         Scanner sc=new Scanner(System.in);
         name=sc.nextLine();
         gameService.sendRoleAction(name);
         System.out.println("action sent");
-    }
-    public void godFatherJob(){
-        choosePlayer();
     }
 
 }

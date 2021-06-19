@@ -82,6 +82,7 @@ class God implements Runnable{
      */
     public void sendKnockedOut(){
         for (ClientHandler c: values.allPlayers)
+            if (c!=null)
             c.sendKnockedOut();
     }
 
@@ -173,6 +174,7 @@ class God implements Runnable{
 class ClientHandler extends Thread implements Runnable {
    Values values;
    String name;
+   String type;
    Socket socket;
    ObjectOutputStream oOut;
    ObjectInputStream oIn;
@@ -377,45 +379,55 @@ class ClientHandler extends Thread implements Runnable {
        values.attend.add(this);
         if (type.equals("doctor")) {
             values.doctor = this;
+            this.type="c";
             values.allCitizen.add(values.doctor);
         }
         else if (type.equals("lector")) {
             values.lector = this;
+            this.type="m";
             values.allMafia.add(values.lector);
         }
         else if (type.equals("detective")) {
+            this.type="c";
             values.detective=this;
             values.allCitizen.add(values.detective);
         }
 
         else if (type.equals("mayor")) {
             values.mayor=this;
+            this.type="c";
             values.allCitizen.add(values.mayor);
         }
         else if (type.equals("sniper")){
             values.sniper=this;
+            this.type="c";
             values.allCitizen.add(values.sniper);
         }
 
         else if (type.equals("dieHard")) {
             values.dieHard=this;
+            this.type="c";
             values.allCitizen.add(values.dieHard);
         }
         else if (type.equals("psychologist")) {
             values.psychologist=this;
+            this.type="c";
             values.allCitizen.add(values.psychologist);
         }
         else if (type.equals("godFather")) {
             values.godFatherRole=this;
+            this.type="m";
             sendGodFatherRole();
             values.godFather=this;
             values.allMafia.add(values.godFather);
         }
         else if (type.equals("citizen")) {
+            this.type="c";
             values.allCitizen.add(this);
         }
 
         else if (type.equals("mafia")) {
+            this.type="m";
             values.allMafia.add(this);
         }
     }
@@ -477,8 +489,8 @@ class ClientHandler extends Thread implements Runnable {
                    findPlayer(action).codeOut.writeUTF("shut_up");
                }
            }else if (this.equals(values.sniper)){
-               if(action.equals("yes")){
-                   action=codeIn.readUTF();
+               if(!action.equals("no")){
+                   //action=codeIn.readUTF();
                    if (cOrM(action).equals("c")){
                        //knockOut(this);
                        values.killedPlayer.add(this);
@@ -544,7 +556,7 @@ class ClientHandler extends Thread implements Runnable {
            if (values.dieHardAction<2) {
                if (values.dead.size()!=0){
                    for (ClientHandler c : values.dead) {
-                       codeOut.writeUTF(cOrM(c.name));
+                       codeOut.writeUTF(c.type);
                    }
                }else
                    codeOut.writeUTF("no one is dead yet!");
@@ -588,12 +600,7 @@ class ClientHandler extends Thread implements Runnable {
 //       }
         if (findPlayer(name)==null)
             return "null";
-       else if (values.allCitizen.contains(findPlayer(name)))
-            return "c";
-        else if (values.allMafia.contains(findPlayer(name)))
-            return "m";
-        else
-        return null;
+       return findPlayer(name).type;
 //        for (int i=0;i<values.allMafia.size();i++){
 //            if (values.allMafia.get(i).name.equals(name))
 //            {
