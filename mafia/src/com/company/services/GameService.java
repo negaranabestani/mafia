@@ -119,8 +119,10 @@ public class GameService implements Runnable{
 
                 runtimeInformation.status=GameStatus.Day;
 
-        else if (state.equals("night"))
+        else if (state.equals("night")){
             runtimeInformation.status=GameStatus.Night;
+            player.psychAllows=true;
+        }
         else if (state.equals("ended")){
             runtimeInformation.status=GameStatus.Ended;
             try {

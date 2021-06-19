@@ -19,6 +19,7 @@ public class Player {
         checkRole=true;
         status=PlayerStatus.Asleep;
         healed=false;
+        psychAllows=true;
         voteNumbers=0;
         gameService=Main.gameService;
     }
