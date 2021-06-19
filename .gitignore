@@ -1,5 +1,5 @@
 # Default ignored files
-/mafia.idea
-/mafia.idea/*
-/MafiaServer.idea
-/MafiaServer.idea/*
+/mafia/.idea
+/mafia/.idea/*
+/MafiaServer/.idea
+/MafiaServer/.idea/*
